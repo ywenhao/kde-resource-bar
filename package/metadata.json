@@ -1,0 +1,14 @@
+{
+  "KPackageStructure": "Plasma/Applet",
+  "KPlugin": {
+    "Id": "org.local.plasma.resourcebar",
+    "Name": "Resource Bar",
+    "Name[zh_CN]": "资源监视条",
+    "Description": "CPU, memory and network throughput with individual hover panels",
+    "Description[zh_CN]": "在任务栏显示 CPU、内存和网速，悬停查看各项详情",
+    "Category": "System Information",
+    "Icon": "utilities-system-monitor",
+    "Version": "1.0.1"
+  },
+  "X-Plasma-API-Minimum-Version": "6.0"
+}
