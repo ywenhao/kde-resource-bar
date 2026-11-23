@@ -15,6 +15,6 @@ KCM.SimpleKCM {
             text: "CPU"
         }
         QQC.Switch { id: memory; text: "内存" }
-        QQC.Switch { id: network; text: "网络吞吐" }
+        QQC.Switch { id: network; text: "网络" }
     }
 }

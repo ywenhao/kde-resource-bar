@@ -84,7 +84,7 @@ Rectangle {
         RowLayout {
             Layout.fillWidth: true
             Caption {
-                text: panel.cpuMode ? "CPU" : panel.memMode ? "内存" : "网络吞吐"
+                text: panel.cpuMode ? "CPU" : panel.memMode ? "内存" : "网络"
                 font.pointSize: Kirigami.Theme.defaultFont.pointSize * 1.35
                 font.weight: Font.DemiBold
                 Layout.fillWidth: true
