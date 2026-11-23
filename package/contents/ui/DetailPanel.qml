@@ -100,11 +100,11 @@ Rectangle {
             Layout.fillWidth: true
             Caption {
                 Layout.fillWidth: true
-                text: panel.cpuMode ? "用户态  " + F.percent(panel.c.userPct, 1) : "↓ 下载  " + F.rate(panel.n.rxRate)
+                text: panel.cpuMode ? "用户态  " + F.percent(panel.c.userPct, 1) : "↓ 下载  " + F.networkRate(panel.n.rxRate)
                 color: panel.primary
             }
             Caption {
-                text: panel.cpuMode ? "系统态  " + F.percent(panel.c.systemPct, 1) : "↑ 上传  " + F.rate(panel.n.txRate)
+                text: panel.cpuMode ? "系统态  " + F.percent(panel.c.systemPct, 1) : "↑ 上传  " + F.networkRate(panel.n.txRate)
                 color: panel.secondary
             }
         }
@@ -181,12 +181,12 @@ Rectangle {
             model: panel.netMode && panel.netMatched && panel.detail.status === "ok" ? panel.detail.rows : []
             delegate: TrafficRow {
                 required property var modelData
-                label: modelData.name; down: F.rate(modelData.rx); up: F.rate(modelData.tx)
+                label: modelData.name; down: F.networkRate(modelData.rx); up: F.networkRate(modelData.tx)
             }
         }
         TrafficRow {
             visible: panel.netMode && panel.netMatched && panel.detail?.status === "ok"
-            label: "其他流量"; down: F.rate(panel.detail?.other?.rx); up: F.rate(panel.detail?.other?.tx)
+            label: "其他流量"; down: F.networkRate(panel.detail?.other?.rx); up: F.networkRate(panel.detail?.other?.tx)
         }
         Caption {
             Layout.fillWidth: true

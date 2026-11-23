@@ -22,16 +22,13 @@ Item {
         ? Kirigami.Theme.defaultFont.pixelSize : Kirigami.Theme.defaultFont.pointSize * 4 / 3), 14,
         Math.floor((height - 2) / (oneLine ? 1 : 2)) - 1))
     objectName: "tile-" + kind
-    implicitWidth: Math.ceil(net ? (oneLine ? 2.05 : 1.08) * metrics.advanceWidth("↓ 999 MiB/s") + 9
+    implicitWidth: Math.ceil(net ? (oneLine ? 2.05 : 1.08) * Math.max(metrics.advanceWidth("↓ 999 MB/s"),
+                                    upload.implicitWidth, download.implicitWidth) + 9
                                 : oneLine ? metrics.advanceWidth("CPU 100%") + 15 : metrics.advanceWidth("100%") + 18)
     activeFocusOnTab: true
     Accessible.role: Accessible.Indicator
     Accessible.name: net ? "网速" : cpuMode ? "CPU " + reading : "内存 " + reading
 
-    function compactRate(v) {
-        const value = F.rate(v)
-        return vertical && width < 74 ? value.replace(" KiB/s", "K").replace(" MiB/s", "M").replace(" GiB/s", "G").replace(" B/s", "B") : value
-    }
     HoverHandler { id: pointer }
     onActiveFocusChanged: keyDismissed = false
     Keys.onEscapePressed: keyDismissed = true
@@ -48,6 +45,12 @@ Item {
         textFormat: Text.PlainText
         color: Kirigami.Theme.textColor
         renderType: Text.QtRendering
+    }
+    component RateText: SmallText {
+        width: tile.vertical ? tile.width : implicitWidth
+        fontSizeMode: tile.vertical ? Text.HorizontalFit : Text.FixedSize
+        minimumPixelSize: 1
+        horizontalAlignment: Text.AlignHCenter
     }
     Row {
         visible: !tile.net
@@ -77,7 +80,7 @@ Item {
         anchors.centerIn: parent
         columns: tile.oneLine ? 2 : 1
         columnSpacing: 5
-        SmallText { text: "↑ " + tile.compactRate(tile.monitor.network?.txRate); color: Kirigami.Theme.positiveTextColor }
-        SmallText { text: "↓ " + tile.compactRate(tile.monitor.network?.rxRate); color: Kirigami.Theme.linkColor }
+        RateText { id: upload; text: "↑ " + F.networkRate(tile.monitor.network?.txRate); color: Kirigami.Theme.positiveTextColor }
+        RateText { id: download; text: "↓ " + F.networkRate(tile.monitor.network?.rxRate); color: Kirigami.Theme.linkColor }
     }
 }

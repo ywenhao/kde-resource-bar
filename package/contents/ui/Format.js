@@ -17,6 +17,14 @@ function rate(value) {
     return value === null || value === undefined ? "—" : size(value) + "/s"
 }
 
+function networkRate(value) {
+    if (value === null || value === undefined || !isFinite(value)) return "—"
+    if (value < 1000) return value.toFixed(0) + " B/s"
+    const useMegabytes = value >= 1000000
+    const scaled = value / (useMegabytes ? 1000000 : 1000)
+    return scaled.toFixed(scaled < 10 ? 1 : 0) + (useMegabytes ? " MB/s" : " KB/s")
+}
+
 function uptime(seconds) {
     if (seconds === undefined) return "—"
     const days = Math.floor(seconds / 86400)
